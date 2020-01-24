@@ -4,18 +4,25 @@
       <template v-slot:default>
         <thead>
         <tr>
-          <th class="text-left">ID</th>
-          <th class="text-left">Title</th>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Body</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="post in posts" :key="post.id">
+        <tr v-for="post in currentPosts"
+            :key="post.id">
           <td>{{ post.id }}</td>
           <td>{{ post.title }}</td>
+          <td>{{ post.body | trim(30) }}</td>
         </tr>
         </tbody>
       </template>
     </v-simple-table>
+    <v-pagination
+      v-model="currentPage"
+      :length="pages"
+    ></v-pagination>
   </div>
 </template>
 
@@ -24,19 +31,36 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'ObjectsViewer',
-  created () {
-
-  },
   computed: {
     ...mapGetters({
       posts: 'getPosts'
-    })
+    }),
+    currentPosts () {
+      if (!this.posts) {
+        return []
+      }
+      const to = this.currentPage * 10
+      const from = to - 10
+      return this.posts.slice(from, to)
+    },
+    pages () {
+      if (!this.posts) {
+        return 0
+      }
+      return this.posts.length / this.itemsInPage
+    }
   },
-  mounted () {
+  created () {
     this.fetchPosts()
   },
   methods: {
     ...mapActions(['fetchPosts'])
+  },
+  data () {
+    return {
+      currentPage: 1,
+      itemsInPage: 10
+    }
   }
 }
 </script>
