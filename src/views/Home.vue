@@ -1,18 +1,16 @@
 <template>
   <div class="home">
-    <PostsViewer/>
-<!--    <img alt="Vue logo" src="../assets/logo.png">-->
-<!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
+    <PostsTable />
   </div>
 </template>
 
 <script>
-import PostsViewer from '@/components/PostsViewer'
+import PostsTable from '@/components/PostsTable'
 
 export default {
   name: 'home',
   components: {
-    PostsViewer
+    PostsTable
   }
 }
 </script>

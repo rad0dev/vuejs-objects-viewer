@@ -4,8 +4,12 @@
       <template v-slot:default>
         <thead>
         <tr>
-          <th>ID</th>
-          <th>Title</th>
+          <th>
+            <PostsTableSortBtn :sort-type="'id'"/>
+          </th>
+          <th>
+            <PostsTableSortBtn :sort-type="'title'"/>
+          </th>
           <th>Body</th>
         </tr>
         </thead>
@@ -28,9 +32,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import PostsTableSortBtn from '@/components/PostsTableSortBtn'
 
 export default {
-  name: 'ObjectsViewer',
+  name: 'ObjectsTable',
   computed: {
     ...mapGetters({
       posts: 'getPosts'
@@ -59,12 +64,19 @@ export default {
   data () {
     return {
       currentPage: 1,
-      itemsInPage: 10
+      itemsInPage: 10,
+      sort: null,
+      sortOrderDesc: false
     }
+  },
+  components: {
+    PostsTableSortBtn
   }
 }
 </script>
 
 <style scoped>
-
+  table th button span {
+    vertical-align: middle;
+  }
 </style>
