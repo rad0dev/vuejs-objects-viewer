@@ -1,9 +1,12 @@
 <template>
   <button @click="sortData()">
     <span>{{ sortType }}</span>
-    <v-icon v-if="sortType === sortBy" :size="'x-small'">
-      {{ sortOrder === 'ASC' ? 'mdi-arrow-down' : 'mdi-arrow-up' }}
+    <v-icon :size="'medium'">
+      {{ sortType === sortBy && sortOrder
+      ? sortOrder === 'ASC' ? 'mdi-sort-ascending' : 'mdi-sort-descending'
+      : 'mdi-sort' }}
     </v-icon>
+
   </button>
 </template>
 
@@ -12,11 +15,18 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'ObjectsTableSortBtn',
-  computed: {
-    ...mapGetters({
-      sortBy: 'getSortBy',
-      sortOrder: 'getSortOrder'
-    })
+  props: {
+    sortType: String
+  },
+  computed: mapGetters({
+    sortBy: 'getSortBy',
+    sortOrder: 'getSortOrder'
+  }),
+  data () {
+    return {
+      sort: null,
+      sortOrderDesc: false
+    }
   },
   methods: {
     ...mapActions([
@@ -33,15 +43,6 @@ export default {
       }
       this.fetchPosts()
     }
-  },
-  props: {
-    sortType: String
-  },
-  data () {
-    return {
-      sort: null,
-      sortOrderDesc: false
-    }
   }
 }
 </script>
@@ -50,5 +51,6 @@ export default {
   span {
     vertical-align: middle;
     text-transform: capitalize;
+    margin-right: .5em;
   }
 </style>

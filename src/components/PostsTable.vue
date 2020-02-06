@@ -36,6 +36,12 @@ import PostsTableSortBtn from '@/components/PostsTableSortBtn'
 
 export default {
   name: 'ObjectsTable',
+  components: {
+    PostsTableSortBtn
+  },
+  created () {
+    this.fetchPosts()
+  },
   computed: {
     ...mapGetters({
       posts: 'getPosts'
@@ -55,12 +61,6 @@ export default {
       return this.posts.length / this.itemsInPage
     }
   },
-  created () {
-    this.fetchPosts()
-  },
-  methods: {
-    ...mapActions(['fetchPosts'])
-  },
   data () {
     return {
       currentPage: 1,
@@ -69,9 +69,7 @@ export default {
       sortOrderDesc: false
     }
   },
-  components: {
-    PostsTableSortBtn
-  }
+  methods: mapActions(['fetchPosts'])
 }
 </script>
 
