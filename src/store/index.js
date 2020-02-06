@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import storePersistance from './plugins/storePersistance.js'
 
 Vue.use(Vuex)
 
@@ -30,6 +31,10 @@ export default new Vuex.Store({
     },
     setPost (state, data) {
       state.post = data
+    },
+    initPostsTable () {},
+    restorePostsTable (state, data) {
+      state = Object.assign(state, data)
     }
   },
   actions: {
@@ -100,6 +105,5 @@ export default new Vuex.Store({
       return state.post
     }
   },
-  modules: {
-  }
+  plugins: [storePersistance]
 })

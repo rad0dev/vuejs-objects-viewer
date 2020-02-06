@@ -26,6 +26,7 @@
       </template>
     </v-simple-table>
     <v-pagination
+      v-if="pages"
       v-model="currentPage"
       :length="pages"
     ></v-pagination>
@@ -33,7 +34,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import PostsTableSortBtn from '@/components/PostsTableSortBtn'
 import PostsTableFilter from '@/components/PostsTableFilter'
 
@@ -44,6 +45,7 @@ export default {
     PostsTableFilter
   },
   created () {
+    this.initPostsTable()
     this.fetchPosts()
   },
   computed: {
@@ -62,7 +64,7 @@ export default {
       if (!this.posts) {
         return 0
       }
-      return this.posts.length / this.itemsInPage
+      return Math.round(this.posts.length / this.itemsInPage)
     }
   },
   data () {
@@ -75,6 +77,7 @@ export default {
   },
   methods: {
     ...mapActions(['fetchPosts']),
+    ...mapMutations(['initPostsTable']),
     checkPost (id) {
       this.$router.push({
         name: 'post',
