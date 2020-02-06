@@ -1,5 +1,6 @@
 <template>
   <div>
+    <PostsTableFilter />
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -33,9 +34,14 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import PostsTableSortBtn from '@/components/PostsTableSortBtn'
+import PostsTableFilter from '@/components/PostsTableFilter'
 
 export default {
   name: 'ObjectsTable',
+  components: {
+    PostsTableSortBtn,
+    PostsTableFilter
+  },
   computed: {
     ...mapGetters({
       posts: 'getPosts'
@@ -58,9 +64,7 @@ export default {
   created () {
     this.fetchPosts()
   },
-  methods: {
-    ...mapActions(['fetchPosts'])
-  },
+  methods: mapActions(['fetchPosts']),
   data () {
     return {
       currentPage: 1,
@@ -68,9 +72,6 @@ export default {
       sort: null,
       sortOrderDesc: false
     }
-  },
-  components: {
-    PostsTableSortBtn
   }
 }
 </script>
