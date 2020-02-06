@@ -9,7 +9,7 @@
     <v-text-field label="Value"
                   v-model="filterValue"></v-text-field>
     <v-btn small
-           v-on:click="fetchPosts">Filter</v-btn>
+           v-on:click="filter">Filter</v-btn>
     <v-btn text
            icon
            color="red"

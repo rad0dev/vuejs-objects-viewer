@@ -9,7 +9,8 @@ export default new Vuex.Store({
     sortBy: null,
     sortOrder: 'ASC',
     filterBy: null,
-    filterValue: null
+    filterValue: null,
+    post: null
   },
   mutations: {
     setPosts (state, data) {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     setFilterValue (state, data) {
       state.filterValue = data
+    },
+    setPost (state, data) {
+      state.post = data
     }
   },
   actions: {
@@ -45,6 +49,12 @@ export default new Vuex.Store({
       const response = await fetch('https://jsonplaceholder.typicode.com/posts' + params)
       if (response.ok) {
         commit('setPosts', (await response.json()))
+      }
+    },
+    async fetchPost ({ commit, state }, payload) {
+      const response = await fetch('https://jsonplaceholder.typicode.com/posts/' + payload)
+      if (response.ok) {
+        commit('setPost', (await response.json()))
       }
     },
     changeSortBy ({ commit }, payload) {
@@ -85,6 +95,9 @@ export default new Vuex.Store({
     },
     getFilterValue (state) {
       return state.filterValue
+    },
+    getPost (state) {
+      return state.post
     }
   },
   modules: {

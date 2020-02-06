@@ -16,7 +16,8 @@
         </thead>
         <tbody>
         <tr v-for="post in currentPosts"
-            :key="post.id">
+            :key="post.id"
+            v-on:click="checkPost(post.id)">
           <td>{{ post.id }}</td>
           <td>{{ post.title }}</td>
           <td>{{ post.body | trim(30) }}</td>
@@ -72,7 +73,15 @@ export default {
       sortOrderDesc: false
     }
   },
-  methods: mapActions(['fetchPosts'])
+  methods: {
+    ...mapActions(['fetchPosts']),
+    checkPost (id) {
+      this.$router.push({
+        name: 'post',
+        params: { id }
+      })
+    }
+  }
 }
 </script>
 
