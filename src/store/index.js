@@ -15,26 +15,26 @@ export default new Vuex.Store({
   },
   mutations: {
     setPosts (state, data) {
-      state.posts = data
+      Vue.set(state, 'posts', data)
     },
     setSortBy (state, data) {
-      state.sortBy = data
+      Vue.set(state, 'sortBy', data)
     },
     setSortOrder (state, data) {
-      state.sortOrder = data
+      Vue.set(state, 'sortOrder', data)
     },
     setFilterBy (state, data) {
-      state.filterBy = data
+      Vue.set(state, 'filterBy', data)
     },
     setFilterValue (state, data) {
-      state.filterValue = data
+      Vue.set(state, 'filterValue', data)
     },
     setPost (state, data) {
-      state.post = data
+      Vue.set(state, 'post', data)
     },
     initPostsTable () {},
     restorePostsTable (state, data) {
-      state = Object.assign(state, data)
+      Object.assign(state, data)
     }
   },
   actions: {
